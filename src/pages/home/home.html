@@ -6,18 +6,34 @@
     <ion-title>Testing for Cavalry</ion-title>
   </ion-navbar>
 </ion-header>
-<p>HEllO TESTING 123</p>
-<ion-buttons>log in</ion-buttons>
-<ion-buttons>sign up</ion-buttons>
-<ion-buttons>Sign-in</ion-buttons>
 
+<ion-content>
+  
+  <ion-segment class="SwipeTabs">
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-  <h2>lets get stated!</h2>
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
+		[ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' >
+			{{tab}}
+		</ion-segment-button>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  </ion-segment>
+  
+  <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
+
+  <ion-slides #SwipedTabsSlider  (ionSlideDrag)="animateIndicator($event)"
+  (ionSlideWillChange)="updateIndicatorPosition()"
+  (ionSlideDidChange)="updateIndicatorPosition()"
+  (pan)="updateIndicatorPosition()"
+  [pager]="false">
+
+    <ion-slide>
+      <p>New</p>
+    </ion-slide>
+
+    <ion-slide>
+      Upcoming
+    </ion-slide>
+    
+  </ion-slides>
+
 </ion-content>
