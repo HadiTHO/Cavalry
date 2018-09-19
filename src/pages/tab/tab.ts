@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { EventPage } from '../event/event';
 import { AccountPage } from '../account/account';
 
@@ -12,7 +11,7 @@ import { AccountPage } from '../account/account';
 })
 export class TabPage {
 
-  homePage = HomePage;
+  homePage = 'HomePage';
   eventPage = EventPage;
   accountPage = AccountPage;
 

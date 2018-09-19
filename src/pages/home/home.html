@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header color="secondary">
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -10,12 +10,10 @@
 <ion-content>
   
   <ion-segment class="SwipeTabs">
-
     <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
 		[ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' >
 			{{tab}}
 		</ion-segment-button>
-
   </ion-segment>
   
   <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
@@ -27,13 +25,31 @@
   [pager]="false">
 
     <ion-slide>
-      <p>New</p>
-    </ion-slide>
+
+      <ion-list>
+        <ion-item *ngFor="let new of newEventList$ | async">
+          <h2>{{new.eventName}}</h2>
+          <h4>{{new.eventDesc}}</h4>
+          <h6>{{new.lat}}</h6>
+          <h6>{{new.lgt}}</h6>
+        </ion-item>
+      </ion-list>
+
+    </ion-slide> 
 
     <ion-slide>
-      Upcoming
+      
     </ion-slide>
     
   </ion-slides>
+
+  <ion-fab right bottom>
+    <button ion-fab><ion-icon name="pin"></ion-icon></button>
+      <ion-fab-list side = top>
+        <button ion-fab (click)="toMap()"><ion-icon name="map"></ion-icon></button>
+        <button ion-fab (click)="toNearby()"><ion-icon name="locate"></ion-icon></button>
+        <button ion-fab (click)="toNearby()"><ion-icon name="locate"></ion-icon></button>
+      </ion-fab-list>
+  </ion-fab>
 
 </ion-content>

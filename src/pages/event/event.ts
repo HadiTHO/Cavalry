@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EventPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { EventDetail } from '../../models/event-detail/event-detail.interface';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -15,11 +10,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  eventDetail = {} as EventDetail;
+
+  eventDetailRef$: AngularFireList<EventDetail>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase) {
+    this.eventDetailRef$ = this.database.list('event-list');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventPage');
+  addEvent( eventDetail: EventDetail) {
+
+    this.eventDetailRef$.push({
+      eventName: this.eventDetail.eventName,
+      eventDesc: this.eventDetail.eventDesc,
+      lat: Number(this.eventDetail.lat),
+      lgt: Number(this.eventDetail.lgt)
+    });
+
+    this.eventDetail = {} as EventDetail;
+
+    this.navCtrl.push('HomePage'); 
+
   }
 
 }
